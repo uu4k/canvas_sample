@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body onload="draw()">
+    <canvas id="sample1" width="400" height="400">
+        図形を表示するには、canvasタグをサポートしたブラウザが必要です。
+    </canvas>
+    <button id="download" onclick="download()">download</button>
+    <script type="text/javascript">
+        function draw() {
+            const canvas = document.getElementById('sample1');
+            if (canvas.getContext) {
+                const context = canvas.getContext('2d');
+
+                const img01 = new Image();
+                img01.addEventListener('load', () => {
+                    context.drawImage(img01, 0, 0, 400, 400);
+                })
+                img01.src = "./1235_sankuzushi.jpg";
+
+                const img02 = new Image();
+                img02.addEventListener('load', () => {
+                    context.drawImage(img02, 320, 320, 80, 80);
+                })
+                img02.src = "./vue.svg";
+            }
+        }
+
+        function download() {
+            const canvas = document.getElementById('sample1');
+            const link = document.createElement("a");
+            // file://~ で開いている場合はエラーになる
+            link.href = canvas.toDataURL("image/png");
+            link.download = "test.png";
+            link.click();
+        }
+    </script>
+</body>
+
+</html>
