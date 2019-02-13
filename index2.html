@@ -9,11 +9,15 @@
 </head>
 
 <body onload="draw()">
-    <canvas id="sample1" width="400" height="400">
+    <canvas id="sample1" width="48" height="48">
         図形を表示するには、canvasタグをサポートしたブラウザが必要です。
     </canvas>
     <button id="download" onclick="download()">download</button>
     <script type="text/javascript">
+        const SIZE_RATE = 3; // 大
+        // const SIZE_RATE = 4; // 中
+        // const SIZE_RATE = 5; // 小
+
         function draw() {
             const canvas = document.getElementById('sample1');
             if (canvas.getContext) {
@@ -21,15 +25,125 @@
 
                 const img01 = new Image();
                 img01.addEventListener('load', () => {
-                    context.drawImage(img01, 0, 0, 400, 400);
+                    context.drawImage(img01, 0, 0, 48, 48);
                 })
                 img01.src = "./1235_sankuzushi.jpg";
 
-                const img02 = new Image();
-                img02.addEventListener('load', () => {
-                    context.drawImage(img02, 320, 320, 80, 80);
+                // const img02 = new Image();
+                // img02.addEventListener('load', () => {
+                //     context.drawImage(img02, 50, 50, 100, 100);
+                // })
+                // img02.src = "./vue.svg";
+
+                const img03 = new Image();
+                img03.addEventListener('load', () => {
+
+                    // デフォルト描画サイズ
+                    let dw = canvas.width / SIZE_RATE;
+                    let dh = canvas.height / SIZE_RATE;
+
+                    // デフォルト始点
+                    let dx = canvas.width * (SIZE_RATE - 1) / SIZE_RATE;
+                    let dy = canvas.height * (SIZE_RATE - 1) / SIZE_RATE;
+
+                    if (img03.width > img03.height) {
+                        dh = img03.height * (dw / img03.width);
+                        // デフォ=上寄せ
+
+                        // 下寄せ
+                        // dy = canvas.height - dh
+
+                        // 中央寄せ
+                        dy = canvas.height * (SIZE_RATE - 0.5) / SIZE_RATE - (dh / 2);
+                    } else {
+                        dw = img03.width * (dh / img03.height);
+
+                        // デフォ=右寄せ
+
+                        // 左寄せ
+                        // dx = canvas.width - dw;
+
+                        // 中央寄せ
+                        // dx = canvas.width * (SIZE_RATE - 0.5) / SIZE_RATE - (dw / 2);
+                    }
+
+                    context.drawImage(img03, dx, dy, dw, dh);
                 })
-                img02.src = "./vue.svg";
+                img03.src = "./wordpress.svg";
+
+                const img04 = new Image();
+                img04.addEventListener('load', () => {
+                    // デフォルト描画サイズ
+                    let dw = canvas.width / SIZE_RATE;
+                    let dh = canvas.height / SIZE_RATE;
+
+                    // デフォルト始点
+                    let dx = canvas.width * (SIZE_RATE - 1) / SIZE_RATE;
+                    let dy = canvas.height * (SIZE_RATE - 1) / SIZE_RATE;
+
+                    if (img04.width > img04.height) {
+                        dh = img04.height * (dw / img04.width);
+                        // デフォ=上寄せ
+
+                        // 下寄せ
+                        // dy = canvas.height - dh
+
+                        // 中央寄せ
+                        dy = canvas.height * (SIZE_RATE - 0.5) / SIZE_RATE - (dh / 2);
+                    } else {
+                        dw = img04.width * (dh / img04.height);
+
+                        // デフォ=右寄せ
+
+                        // 左寄せ
+                        // dx = canvas.width - dw;
+
+                        // 中央寄せ
+                        // dx = canvas.width * (SIZE_RATE - 0.5) / SIZE_RATE - (dw / 2);
+                    }
+
+                    // 2つめなので補正
+                    dx = dx - canvas.width / SIZE_RATE;
+                    context.drawImage(img04, dx, dy, dw, dh);
+                })
+                img04.src = "./spinnaker.svg";
+
+                const img05 = new Image();
+                img05.addEventListener('load', () => {
+                    // デフォルト描画サイズ
+                    let dw = canvas.width / SIZE_RATE;
+                    let dh = canvas.height / SIZE_RATE;
+
+                    // デフォルト始点
+                    let dx = canvas.width * (SIZE_RATE - 1) / SIZE_RATE;
+                    let dy = canvas.height * (SIZE_RATE - 1) / SIZE_RATE;
+
+                    if (img05.width > img05.height) {
+                        dh = img05.height * (dw / img05.width);
+                        // デフォ=上寄せ
+
+                        // 下寄せ
+                        // dy = canvas.height - dh
+
+                        // 中央寄せ
+                        dy = canvas.height * (SIZE_RATE - 0.5) / SIZE_RATE - (dh / 2);
+                    } else {
+                        dw = img05.width * (dh / img05.height);
+
+                        // デフォ=右寄せ
+
+                        // 左寄せ
+                        // dx = canvas.width - dw;
+
+                        // 中央寄せ
+                        // dx = canvas.width * (SIZE_RATE - 0.5) / SIZE_RATE - (dw / 2);
+                    }
+
+                    // 3つめなので補正
+                    dx = dx - 2 * canvas.width / SIZE_RATE;
+                    context.drawImage(img05, dx, dy, dw, dh);
+                })
+                img05.src = "./vue.svg";
             }
         }
 
