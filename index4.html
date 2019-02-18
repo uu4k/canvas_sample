@@ -1,100 +1,118 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Document</title>
-</head>
+  </head>
 
-<body onload="draw()">
+  <body onload="draw()">
     <canvas id="sample1" width="400" height="400">
-        図形を表示するには、canvasタグをサポートしたブラウザが必要です。
+      図形を表示するには、canvasタグをサポートしたブラウザが必要です。
     </canvas>
     <button id="download" onclick="download()">download</button>
     <script type="text/javascript">
-        // const SIZE_RATE = 3; // 大
-        // const SIZE_RATE = 4; // 中
-        const SIZE_RATE = 5; // 小
+      const SIZE_RATE = 3; // 大
+    //   const SIZE_RATE = 4; // 中
+    //   const SIZE_RATE = 5; // 小
+      const BASE_ICON_SIZE = 48;
 
-        function calcCenterPoints(radius, sizeRate) {
+      function calcCenterPoints(radius, sizeRate) {
+        const iconSize = (radius * 2) / sizeRate;
 
-            const iconSize = radius * 2 / sizeRate;
+        const points = [];
+        // 半円
+        // for (let i = 0; i < sizeRate; i++) {
+        //     const angle = Math.PI / 2 + Math.PI * i / (sizeRate - 1);
+        //     const x = radius + Math.sin(angle) * (radius - iconSize / 2);
+        //     const y = radius - Math.cos(angle) * (radius - iconSize / 2);
+        //     points.push([x, y]);
+        // }
 
-            const points = [];
-            for (let i = 0; i < sizeRate; i++) {
-                const angle = Math.PI / 2 + Math.PI * i / (sizeRate - 1);
-                const x = radius + Math.sin(angle) * (radius - iconSize / 2);
-                const y = radius - Math.cos(angle) * (radius - iconSize / 2);
-                points.push([x, y]);
-            }
+        // 扇型
+        // for (let i = 1; i < sizeRate + 1; i++) {
+        //     const angle = Math.PI / 2 + Math.PI * i / (sizeRate + 1);
+        //     const x = radius + Math.sin(angle) * (radius - iconSize / 2);
+        //     const y = radius - Math.cos(angle) * (radius - iconSize / 2);
+        //     points.push([x, y]);
+        // }
 
-            return points;
+        // 円
+        for (
+          let angle = (0 * Math.PI) / 180;
+          angle < (360 * Math.PI) / 180;
+          angle += ((360 / (sizeRate * 2)) * Math.PI) / 180
+        ) {
+          const x = radius + Math.sin(angle) * (radius - iconSize / 2);
+          const y = radius - Math.cos(angle) * (radius - iconSize / 2);
+          points.push([x, y]);
+          points.push([x, y]);
         }
 
-        function draw() {
-            const canvas = document.getElementById('sample1');
-            if (canvas.getContext) {
-                const context = canvas.getContext('2d');
+        return points;
+      }
 
-                context.beginPath();
-                context.arc(canvas.width / 2, canvas.height / 2, canvas.width / 2, 0 * Math.PI / 180, 360 * Math.PI /
-                    180);
-                context.clip();
+      function draw() {
+        const canvas = document.getElementById("sample1");
+        if (canvas.getContext) {
+          const context = canvas.getContext("2d");
 
-                const img01 = new Image();
-                img01.addEventListener('load', () => {
-                    context.beginPath()
-                    context.drawImage(img01, 0, 0, canvas.width, canvas.height);
-                })
-                img01.src = "./1235_sankuzushi.jpg";
+          // context.beginPath();
+          // context.arc(BASE_ICON_SIZE / 2, BASE_ICON_SIZE / 2, BASE_ICON_SIZE / 2, 0 * Math.PI / 180, 360 * Math.PI /
+          //     180);
+          // context.clip();
 
-                const img06 = new Image();
-                img06.addEventListener('load', () => {
-                    // 始点取得
-                    const points = calcCenterPoints(canvas.width / 2, SIZE_RATE);
+          // const img01 = new Image();
+          // img01.addEventListener('load', () => {
+          //     context.beginPath()
+          //     context.drawImage(img01, 0, 0, BASE_ICON_SIZE, BASE_ICON_SIZE);
+          // })
+          // img01.src = "./1235_sankuzushi.jpg";
 
-                    points.forEach(p => {
-                        const centerX = p[0];
-                        const centerY = p[1];
-                        const iconSize = canvas.width / SIZE_RATE;
-                        let dw = dh = iconSize;
-                        let dx = centerX - iconSize / 2;
-                        let dy = centerY - iconSize / 2;
+          const img06 = new Image();
+          img06.addEventListener("load", () => {
+            // 始点取得
+            const points = calcCenterPoints(BASE_ICON_SIZE / 2, SIZE_RATE);
 
-                        if (img06.width > img06.height) {
-                            // 比率を維持したまま高さ調整
-                            dh = img06.height * (dw / img06.width);
+            points.forEach(p => {
+              const centerX = p[0];
+              const centerY = p[1];
+              const iconSize = BASE_ICON_SIZE / SIZE_RATE;
+              let dw = (dh = iconSize);
+              let dx = centerX - iconSize / 2;
+              let dy = centerY - iconSize / 2;
 
-                            // 中央寄せ
-                            dy = centerY - dh / 2;
-                        } else {
-                            // 比率を維持したまま幅調整
-                            dw = img06.width * (dh / img06.height);
+              if (img06.width > img06.height) {
+                // 比率を維持したまま高さ調整
+                dh = img06.height * (dw / img06.width);
 
-                            // 中央寄せ
-                            dx = centerX - dw / 2;
-                        }
+                // 中央寄せ
+                dy = centerY - dh / 2;
+              } else {
+                // 比率を維持したまま幅調整
+                dw = img06.width * (dh / img06.height);
 
-                        context.drawImage(img06, dx, dy, dw, dh);
-                        // context.fillRect(dx, dy, dw, dh)
-                    });
+                // 中央寄せ
+                dx = centerX - dw / 2;
+              }
 
-                })
-                img06.src = "./vue.svg";
-            }
+              context.drawImage(img06, dx, dy, dw, dh);
+              // context.fillRect(dx, dy, dw, dh)
+            });
+          });
+          img06.src = "./vue.svg";
         }
+      }
 
-        function download() {
-            const canvas = document.getElementById('sample1');
-            const link = document.createElement("a");
-            // file://~ で開いている場合はエラーになる
-            link.href = canvas.toDataURL("image/png");
-            link.download = "test.png";
-            link.click();
-        }
+      function download() {
+        const canvas = document.getElementById("sample1");
+        const link = document.createElement("a");
+        // file://~ で開いている場合はエラーになる
+        link.href = canvas.toDataURL("image/png");
+        link.download = "test.png";
+        link.click();
+      }
     </script>
-</body>
-
+  </body>
 </html>
