@@ -28,7 +28,8 @@
                 const context = canvas.getContext('2d');
 
                 context.beginPath();
-                context.arc(canvas.width / 2, canvas.height / 2, canvas.width / 2, 0 * Math.PI / 180, 360 * Math.PI / 180);
+                context.arc(canvas.width / 2, canvas.height / 2, canvas.width / 2, 0 * Math.PI / 180, 360 * Math.PI /
+                    180);
                 context.clip();
 
                 const img01 = new Image();
@@ -70,8 +71,9 @@
                         // dx = canvas.width * (SIZE_RATE - 0.5) / SIZE_RATE - (dw / 2);
                     }
 
-dy -= calcOffsetY(canvas.width / 2, SIZE_RATE, canvas.width - canvas.width / SIZE_RATE / 2 - 0 * canvas.width /
-SIZE_RATE)
+                    dy -= calcOffsetY(canvas.width / 2, SIZE_RATE, canvas.width - canvas.width / SIZE_RATE / 2 -
+                        0 * canvas.width /
+                        SIZE_RATE)
                     context.drawImage(img03, dx, dy, dw, dh);
                 })
                 img03.src = "./youtube.svg";
@@ -109,8 +111,9 @@ SIZE_RATE)
 
                     // 2つめなので補正
                     dx = dx - canvas.width / SIZE_RATE;
-dy -= calcOffsetY(canvas.width / 2, SIZE_RATE, canvas.width - canvas.width / SIZE_RATE / 2 - 1 * canvas.width /
-SIZE_RATE)
+                    dy -= calcOffsetY(canvas.width / 2, SIZE_RATE, canvas.width - canvas.width / SIZE_RATE / 2 -
+                        1 * canvas.width /
+                        SIZE_RATE)
                     context.drawImage(img04, dx, dy, dw, dh);
                 })
                 img04.src = "./spinnaker.svg";
@@ -148,8 +151,9 @@ SIZE_RATE)
 
                     // 3つめなので補正
                     dx = dx - 2 * canvas.width / SIZE_RATE;
-dy -= calcOffsetY(canvas.width / 2, SIZE_RATE, canvas.width - canvas.width / SIZE_RATE / 2 - 2 * canvas.width /
-SIZE_RATE)
+                    dy -= calcOffsetY(canvas.width / 2, SIZE_RATE, canvas.width - canvas.width / SIZE_RATE / 2 -
+                        2 * canvas.width /
+                        SIZE_RATE)
                     context.drawImage(img05, dx, dy, dw, dh);
                 })
                 img05.src = "./vue.svg";
@@ -164,8 +168,8 @@ SIZE_RATE)
                     let dx = canvas.width * (SIZE_RATE - 1) / SIZE_RATE;
                     let dy = canvas.height * (SIZE_RATE - 1) / SIZE_RATE;
 
-                    if (img06.width > img05.height) {
-                        dh = img06.height * (dw / img05.width);
+                    if (img06.width > img06.height) {
+                        dh = img06.height * (dw / img06.width);
                         // デフォ=上寄せ
 
                         // 下寄せ
@@ -174,7 +178,7 @@ SIZE_RATE)
                         // 中央寄せ
                         dy = canvas.height * (SIZE_RATE - 0.5) / SIZE_RATE - (dh / 2);
                     } else {
-                        dw = img06.width * (dh / img05.height);
+                        dw = img06.width * (dh / img06.height);
 
                         // デフォ=右寄せ
 
@@ -187,8 +191,9 @@ SIZE_RATE)
 
                     // 4つめなので補正
                     dx = dx - 3 * canvas.width / SIZE_RATE;
-dy -= calcOffsetY(canvas.width / 2, SIZE_RATE, canvas.width - canvas.width / SIZE_RATE / 2 - 3 * canvas.width /
-SIZE_RATE)
+                    dy -= calcOffsetY(canvas.width / 2, SIZE_RATE, canvas.width - canvas.width / SIZE_RATE / 2 -
+                        3 * canvas.width /
+                        SIZE_RATE)
                     context.drawImage(img06, dx, dy, dw, dh);
                 })
                 img06.src = "./w3c.svg";
